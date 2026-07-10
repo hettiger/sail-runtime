@@ -42,10 +42,13 @@ Any version that ships a runtime in `laravel/sail` is supported — currently `8
 
 The Sail runtimes ship a fixed Node version. If the mounted directory contains a `.nvmrc`, `setup.sh` activates the requested version via [nvm](https://github.com/nvm-sh/nvm) on startup — resolved exactly like on your host. Missing versions are downloaded once and cached; if activation fails (e.g. first download while offline, or an invalid `.nvmrc`), `sr` aborts instead of silently running the wrong Node. Without a `.nvmrc` you get the Node version baked into the Sail image. After activation, `corepack enable` runs so `packageManager` pins in `package.json` are honored.
 
+nvm itself is always installed and available in interactive shells, so you can run `nvm use` / `nvm install` manually at any time.
+
 ## How it works
 
 - `compose.yml` defines a single `app` service built from `laravel/sail/runtimes/<version>`.
 - Containers are ephemeral (`docker compose run --build --rm`); nothing persists between runs except the files in your mounted directory and the `sail` user's home.
 - The home directory lives in the `sail-runtime-home` named volume (shared across all PHP versions), so Composer, npm, and nvm caches survive between runs. `docker volume rm sail-runtime-home` resets it.
+- `COMPOSER_HOME` points to a per-PHP-version directory inside that volume, so globally installed packages never flip-flop between PHP versions.
 - Commands run with your host UID/GID, so files created inside the container belong to you.
 - On startup, `setup.sh` installs the [Laravel installer](https://github.com/laravel/installer) globally, making `laravel new` available out of the box, and activates the `.nvmrc` Node version if present.
