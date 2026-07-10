@@ -7,7 +7,7 @@ composer global require laravel/installer
 export NVM_DIR="$HOME/.nvm"
 
 if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
-  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | PROFILE=/dev/null bash || return 1
+  git clone --quiet --depth 1 --branch v0.40.3 https://github.com/nvm-sh/nvm.git "$NVM_DIR" || return 1
 fi
 
 # --no-use keeps the PATH set by the .nvmrc activation below; the nvm
