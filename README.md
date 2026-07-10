@@ -15,7 +15,7 @@ The official [`laravel/sail`](https://github.com/laravel/sail) runtimes are pull
 Clone the repository and source `sail-runtime.sh` from your `.zshrc`:
 
 ```sh
-git clone git@gitlab.main-echo.de:main-netz/docker/sail-runtime.git
+git clone https://github.com/hettiger/sail-runtime.git
 echo "\nsource $(pwd)/sail-runtime/sail-runtime.sh" >> ~/.zshrc
 ```
 
