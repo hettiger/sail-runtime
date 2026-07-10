@@ -1,0 +1,3 @@
+[submodule "laravel/sail"]
+	path = laravel/sail
+	url = https://github.com/laravel/sail.git
