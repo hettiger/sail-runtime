@@ -18,9 +18,12 @@ services:
         working_dir: /var/www/html
         volumes:
             - './setup.sh:/setup.sh:ro'
-            - './.config/:/home/sail/.config/'
+            - 'sail-home:/home/sail'
         networks:
             - sail
 networks:
     sail:
         driver: bridge
+volumes:
+    sail-home:
+        name: sail-runtime-home
