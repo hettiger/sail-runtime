@@ -18,6 +18,7 @@ services:
         working_dir: /var/www/html
         volumes:
             - './setup.sh:/setup.sh:ro'
+            - './.config/:/home/sail/.config/'
         networks:
             - sail
 networks:
