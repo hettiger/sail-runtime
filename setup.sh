@@ -27,7 +27,11 @@ source "$NVM_DIR/nvm.sh" --no-use || return 1
 if [[ -f .nvmrc ]]; then
   nvm use || nvm install || return 1
 
-  if command -v corepack > /dev/null; then
-    corepack enable || return 1
+  if command -v corepack > /dev/null 2>&1; then
+    if ! corepack enable 2>/dev/null; then
+      echo "warning: 'corepack enable' failed; packageManager pins in package.json will not be honored" >&2
+    fi
+  else
+    echo "warning: corepack not found; packageManager pins in package.json will not be honored" >&2
   fi
 fi
